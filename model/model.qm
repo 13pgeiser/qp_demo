@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model version="5.2.3" links="0">
+ <framework name="qpc"/>
+ <package file="./app.qmp"/>
+ <package file="./blink_leds.qmp"/>
+ <directory name="generated">
+  <file name="signals.h">
+   <text>#ifndef SIGNALS_H
+#define SIGNALS_H
+
+#include &lt;qpc.h&gt;
+
+enum Signals {
+    START_SIG = Q_USER_SIG,
+    STOP_SIG,
+    BUTTON_PRESS_SIG,
+    BLINK_SIG,
+    TMO_SIG,
+};
+
+#endif // SIGNALS_H
+</text>
+  </file>
+  <file name="model.h">
+   <text>#ifndef MODEL_H
+#define MODEL_H
+
+#include &quot;main_application.h&quot;
+#include &quot;blink_leds.h&quot;
+
+#endif // MODEL_H
+</text>
+  </file>
+ </directory>
+</model>

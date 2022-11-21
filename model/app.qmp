@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package name="QpApp" stereotype="0x02">
+ <class name="MainApplicationHsm" superclass="qpc::QActive">
+  <attribute name="aoSto[10]" type="QEvt const*" visibility="0x00" properties="0x00"/>
+  <statechart properties="0x01">
+   <initial target="../1">
+    <action brief="Initialize Hardware">BSP_init();</action>
+    <initial_glyph conn="25,9,5,3,13">
+     <action box="0,-2,11,5"/>
+    </initial_glyph>
+   </initial>
+   <state name="idle">
+    <tran trig="START" target="../../2">
+     <tran_glyph conn="42,16,2,0,6">
+      <action box="1,2,10,2"/>
+     </tran_glyph>
+    </tran>
+    <tran trig="CATCH_ALL">
+     <action brief="\Error, unhandled signal">Q_ERROR();</action>
+     <tran_glyph conn="38,12,3,-1,18">
+      <action box="0,-2,17,5"/>
+     </tran_glyph>
+    </tran>
+    <state_glyph node="38,4,27,12"/>
+   </state>
+   <state name="ready">
+    <documentation>Ready state. The system is initialized. Background is cleared (ie white)
+Waiting for BUTTON_PRESS signal.</documentation>
+    <tran trig="STOP" target="../../1">
+     <tran_glyph conn="60,22,0,2,-6">
+      <action box="1,-4,10,2"/>
+     </tran_glyph>
+    </tran>
+    <tran trig="BUTTON_PRESS" target="../3">
+     <tran_glyph conn="2,32,3,3,16">
+      <action box="0,-2,14,2"/>
+     </tran_glyph>
+    </tran>
+    <tran trig="CATCH_ALL">
+     <action brief="\Error, unhandled signal">Q_ERROR();</action>
+     <tran_glyph conn="2,46,3,-1,18">
+      <action box="0,-2,17,5"/>
+     </tran_glyph>
+    </tran>
+    <state name="blue">
+     <entry brief="\Set blue color">BSP_setColor(BSP_COLOR_BLUE);</entry>
+     <tran trig="BUTTON_PRESS" target="../../4">
+      <tran_glyph conn="34,32,1,3,14">
+       <action box="0,-2,15,2"/>
+      </tran_glyph>
+     </tran>
+     <state_glyph node="18,26,16,16">
+      <entry box="1,2,13,6"/>
+     </state_glyph>
+    </state>
+    <state name="red">
+     <entry brief="\Set red color">BSP_setColor(BSP_COLOR_RED);</entry>
+     <tran trig="BUTTON_PRESS" target="../../5">
+      <tran_glyph conn="64,32,1,3,14">
+       <action box="0,-2,13,3"/>
+      </tran_glyph>
+     </tran>
+     <state_glyph node="48,26,16,16">
+      <entry box="1,2,13,6"/>
+     </state_glyph>
+    </state>
+    <state name="green">
+     <entry brief="\Set green color">BSP_setColor(BSP_COLOR_GREEN);</entry>
+     <tran trig="BUTTON_PRESS">
+      <action brief="\Blink Leds!">BlinkLeds_Blink(10);</action>
+      <tran_glyph conn="78,38,3,-1,15">
+       <action box="0,-2,16,4"/>
+      </tran_glyph>
+     </tran>
+     <state_glyph node="78,26,16,16">
+      <entry box="1,2,13,6"/>
+     </state_glyph>
+    </state>
+    <state_glyph node="2,22,96,28"/>
+   </state>
+   <state_diagram size="100,54"/>
+  </statechart>
+ </class>
+ <class name="MainApplication">
+  <operation name="Ctor" type="void" visibility="0x00" properties="0x01">
+   <code>Q_ASSERT(ao == NULL);
+memset(&amp;thisAo , 0, sizeof(thisAo));
+QActive_ctor(&amp;thisAo.super, Q_STATE_CAST(&amp;MainApplicationHsm_initial));
+QACTIVE_START(&amp;thisAo.super,        /* active object to start */
+              1U,                   /* priority of the active object */
+              thisAo.aoSto,         /* event queue buffer */
+              Q_DIM(thisAo.aoSto),  /* the length of the buffer */
+              (void *)0, 0U,        /* private stack (not used) */
+              (QEvt *)0);           /* initialization event (not used) */
+ao = &amp;thisAo.super;</code>
+  </operation>
+  <operation name="ButtonPress" type="void" visibility="0x00" properties="0x01">
+   <code>QACTIVE_POST(ao, Q_NEW(BasicEvt, BUTTON_PRESS_SIG), ao);</code>
+  </operation>
+  <operation name="Start" type="void" visibility="0x00" properties="0x01">
+   <code>QACTIVE_POST(ao, Q_NEW(BasicEvt, START_SIG), ao);</code>
+  </operation>
+  <operation name="Stop" type="void" visibility="0x00" properties="0x01">
+   <code>QACTIVE_POST(ao, Q_NEW(BasicEvt, STOP_SIG), ao);</code>
+  </operation>
+ </class>
+ <class name="BasicEvt" superclass="qpc::QEvt">
+  <operation name="ctor" type="QEvt const *" visibility="0x00" properties="0x00">
+   <parameter name="sig" type="enum_t const"/>
+   <code>me-&gt;super.sig = sig;
+return &amp;me-&gt;super;</code>
+  </operation>
+ </class>
+ <directory name="generated">
+  <file name="main_application.c">
+   <text>#include &lt;string.h&gt;
+#include &lt;bsp.h&gt;
+#include &quot;main_application.h&quot;
+#include &quot;model.h&quot;
+
+Q_DEFINE_THIS_FILE
+
+$declare${QpApp::BasicEvt}
+$declare${QpApp::MainApplicationHsm}
+
+static MainApplicationHsm thisAo;
+static QActive* ao = NULL;
+
+$define${QpApp}</text>
+  </file>
+  <file name="main_application.h">
+   <text>#ifndef MAIN_APPLICATION_H
+#define MAIN_APPLICATION_H
+
+#include &quot;signals.h&quot;
+
+$declare${QpApp::MainApplication}
+
+#endif // MAIN_APPLICATION_H
+</text>
+  </file>
+ </directory>
+</package>
