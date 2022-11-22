@@ -8,17 +8,19 @@ source bash-scripts/helpers.sh
 update_license_copyright_year
 run_shfmt_and_shellcheck ./*.sh
 # Install required tools
-install_packages make subversion gcc
+install_packages make subversion
 install_cmake
 if [ "$1" == "arm" ]; then
 	install_gcc_arm_none_eabi
+else
+	install_package gcc
 fi
 write_sourceme
 download_inno() {
 	case "$OSTYPE" in
 	msys)
 		local result
-		result=$(download_unpack 81e68ff6f7c21b0cacd506569b363c2a https://downloads.sourceforge.net/project/innounp/innounp/innounp%200.49/innounp049.rar "ce" "" "")
+		result=$(download_unpack f5afb18883f8d9d098053dbf8789fbbc https://downloads.sourceforge.net/project/innounp/innounp/innounp%200.50/innounp050.rar "ce" "" "")
 		INNO="$result/innounp.exe"
 		;;
 	linux*)
@@ -33,7 +35,7 @@ download_inno() {
 install_qp_qm() { #helpmsg: Install cmake
 	case "$OSTYPE" in
 	msys)
-		QP_VERSION="qp-windows_6.9.1a"
+		QP_VERSION="qp-windows_7.1.3"
 		QP_FOLDER="$TOOLS_FOLDER/$QP_VERSION"
 		if [ ! -d "$QP_FOLDER" ]; then
 			download_inno

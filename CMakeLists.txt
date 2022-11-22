@@ -93,11 +93,10 @@ list(APPEND SOURCES
   )
 include_directories(${INCLUDE_DIRS})
 add_executable(${PROJECT_NAME} ${SOURCES} ${EXT_SOURCES})
-
 if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "arm")
   target_link_libraries(${PROJECT_NAME} c)
   target_link_libraries(${PROJECT_NAME} gcc)
-  if (MSYS)
+  if ("${CMAKE_HOST_SYSTEM_NAME}" STREQUAL "Windows")
     set(STLINK "C:\\Program Files (x86)\\STMicroelectronics\\STM32 ST-LINK Utility\\ST-LINK Utility\\ST-LINK_CLI.exe")
     add_custom_command(TARGET ${PROJECT_NAME}
       POST_BUILD
