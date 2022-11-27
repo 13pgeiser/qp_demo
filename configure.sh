@@ -15,6 +15,7 @@ if [ "$1" == "arm" ]; then
 else
 	install_package gcc
 fi
+
 write_sourceme
 download_inno() {
 	case "$OSTYPE" in
@@ -39,7 +40,7 @@ install_qp_qm() { #helpmsg: Install cmake
 		QP_FOLDER="$TOOLS_FOLDER/$QP_VERSION"
 		if [ ! -d "$QP_FOLDER" ]; then
 			download_inno
-			download 1f346c89a4fcce8300aa0359ce1f362d https://www.state-machine.com/downloads/qp-windows_7.1.3.exe ""
+			download ebbfb54de1cd2d86b64ede1c63ccc76c https://www.state-machine.com/downloads/qp-windows_7.1.3.exe ""
 			mkdir -p "$QP_FOLDER"
 			cmd="$INNO -x $(cygpath -w "$TOOLS_FOLDER/$QP_VERSION.exe") -q -d$(cygpath -w "$TOOLS_FOLDER/$QP_VERSION")"
 			$cmd

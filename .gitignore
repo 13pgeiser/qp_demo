@@ -1,3 +1,4 @@
+_tools
 bash_helpers
 arm-none-eabi.cmake
 bin
@@ -15,5 +16,4 @@ qp_demo.*
 Makefile
 share
 sourceme
-tools
 /build/
