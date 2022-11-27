@@ -60,8 +60,8 @@ static void SystemClock_Config(void) {
 }
 
 void BSP_init(void) {
-  HAL_SetTickFreq(BSP_TICKS_PER_SEC);
   HAL_Init();
+  HAL_SetTickFreq(HAL_TICK_FREQ_100HZ);
   SystemClock_Config();
   SystemCoreClockUpdate();
 #if (ART_ACCLERATOR_ENABLE != 0)

@@ -47,7 +47,7 @@ void Q_onAssert(char const * const module, int loc) {
 
 void QF_onStartup(void) {
   fprintf(stderr, "QF_onStartup\n");
-  QF_setTickRate(BSP_TICKS_PER_SEC, 50);
+  QF_setTickRate(100, 0);
   QF_consoleSetup();
 }
 

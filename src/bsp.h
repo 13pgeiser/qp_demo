@@ -6,8 +6,6 @@
 
 #include <stdbool.h>
 
-#define BSP_TICKS_PER_SEC 100U
-
 typedef enum BspColor_e {
   BSP_COLOR_BLUE,
   BSP_COLOR_RED,
