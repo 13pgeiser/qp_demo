@@ -49,7 +49,7 @@ install_qp_qm() { #helpmsg: Install cmake
 		;;
 	linux*)
 		local result
-		result=$(download_unpack 6cbd2970b4634f6ff4addc6573bd354a https://www.state-machine.com/downloads/qp-linux_7.1.3.zip "ce" "" "")
+		result=$(download_unpack 96dbd928b542b2030da6e2df94b66379 https://www.state-machine.com/downloads/qp-linux_7.1.3.zip "ce" "" "")
 		export QPC_BUNDLE="$result/qp"
 		chmod +x "$QPC_BUNDLE/qm/bin/qm"
 		;;
