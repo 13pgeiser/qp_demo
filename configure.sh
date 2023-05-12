@@ -64,7 +64,7 @@ msys)
 	"$QPC_BUNDLE/qm/bin/qm" model/model.qm -c
 	;;
 linux*)
-	install_debian_packages xvfb libqt5svg5
+	install_debian_packages xvfb libqt5svg5 libqt5printsupport5
 	xvfb-run -a "$QPC_BUNDLE/qm/bin/qm" model/model.qm -c
 	;;
 *)
