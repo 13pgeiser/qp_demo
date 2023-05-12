@@ -10,6 +10,7 @@ Q_DEFINE_THIS_FILE
 
 void BSP_init(void) {
   fprintf(stderr, "BSP_init\n");
+  fprintf(stderr, "Press space bar to trigger the steps of the state-machine\n");
 }
 
 void BSP_setColor(BspColor_t color) {
