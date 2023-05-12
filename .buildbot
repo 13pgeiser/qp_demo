@@ -1,0 +1,5 @@
+bash git submodule update --init --recursive
+bash ./configure.sh arm
+bash source sourceme && make
+bash ./configure.sh host
+bash make clean && make
