@@ -64,8 +64,9 @@ msys)
 	"$QPC_BUNDLE/qm/bin/qm" model/model.qm -c
 	;;
 linux*)
-	install_debian_packages xvfb libqt5svg5 libqt5printsupport5
-	xvfb-run -a "$QPC_BUNDLE/qm/bin/qm" model/model.qm -c
+	install_debian_packages libqt5svg5 libqt5printsupport5
+	export QT_QPA_PLATFORM=offscreen
+	"$QPC_BUNDLE/qm/bin/qm" model/model.qm -c
 	;;
 *)
 	die "Unsupported OS: $OSTYPE"
