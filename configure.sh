@@ -59,7 +59,18 @@ install_qp_qm() { #helpmsg: Install cmake
 	esac
 }
 install_qp_qm
-"$QPC_BUNDLE/qm/bin/qm" model/model.qm -c
+case "$OSTYPE" in
+msys)
+	"$QPC_BUNDLE/qm/bin/qm" model/model.qm -c
+	;;
+linux*)
+	install_packages xvfb
+	xvfb-run -a "$QPC_BUNDLE/qm/bin/qm" model/model.qm -c
+	;;
+*)
+	die "Unsupported OS: $OSTYPE"
+	;;
+esac
 # Create config.cmake
 echo "# Configured variables" >config.cmake
 echo "# Do not edit manually!" >>config.cmake
