@@ -1,5 +1,8 @@
 bash git submodule update --init --recursive
 bash ./configure.sh arm
-bash source sourceme && make
+bash make check -j$(nproc)
+bash source sourceme && make -j$(nproc)
 bash ./configure.sh host
-bash make clean && make
+bash make clean && make -j$(nproc)
+bash make mrproper
+
