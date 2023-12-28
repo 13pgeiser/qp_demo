@@ -61,12 +61,12 @@ void QF_onClockTick(void) {
   QF_TICK_X(0U, (void *)0);  /* perform the QF clock tick processing */
   int key = QF_consoleGetKey();
   if (key == 0) {
-	  return;
+    return;
   } else if (key == 32) { // space bar
-	    MainApplication_ButtonPress();
+    MainApplication_ButtonPress();
   } else if ( (key == 27) || (key == 113) ) {
-	  QF_stop();
+    QF_stop();
   } else {
-	  fprintf(stderr, "Key: %d\n", key);
+    fprintf(stderr, "Key: %d\n", key);
   }
 }

@@ -18,11 +18,11 @@ enum KernelAwareISRs {
 
 void Q_onAssert(char const * const module, int loc) {
   BSP_LCD_SetFont(&Font12);
-  BSP_LCD_DisplayStringAt(0, 0, (uint8_t*)"Q_onAssert", LEFT_MODE);
-  BSP_LCD_DisplayStringAt(0, 16, (uint8_t*)module, LEFT_MODE);
+  BSP_LCD_DisplayStringAt(0, 0, (uint8_t*)"Q_onAssert", LEFT_MODE);  // cppcheck-suppress cstyleCast
+  BSP_LCD_DisplayStringAt(0, 16, (uint8_t*)module, LEFT_MODE);  // cppcheck-suppress cstyleCast
   char line_number[16];
   sniprintf(line_number, sizeof(line_number), "line: %d", loc);
-  BSP_LCD_DisplayStringAt(0, 32, (uint8_t*)line_number, LEFT_MODE);
+  BSP_LCD_DisplayStringAt(0, 32, (uint8_t*)line_number, LEFT_MODE);  // cppcheck-suppress cstyleCast
   for(;;) {}
 }
 
@@ -78,7 +78,7 @@ void BSP_init(void) {
   BSP_LCD_SetBackColor(LCD_COLOR_BLACK);
   BSP_LCD_SetFont(&Font12);
   BSP_LCD_Clear(LCD_COLOR_WHITE);
-  BSP_LCD_DisplayStringAt(0, 16, (uint8_t*)"Ready", CENTER_MODE);
+  BSP_LCD_DisplayStringAt(0, 16, (uint8_t*)"Ready", CENTER_MODE);  // cppcheck-suppress cstyleCast
 }
 
 void BSP_setColor(BspColor_t color) {
